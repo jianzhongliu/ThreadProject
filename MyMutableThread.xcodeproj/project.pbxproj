@@ -23,6 +23,7 @@
 		B7E3586D18FFD73200EA0B60 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B7E3586B18FFD73200EA0B60 /* InfoPlist.strings */; };
 		B7E3586F18FFD73200EA0B60 /* MyMutableThreadTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B7E3586E18FFD73200EA0B60 /* MyMutableThreadTests.m */; };
 		B7E3587A18FFD74A00EA0B60 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7E3587918FFD74A00EA0B60 /* RootViewController.m */; };
+		B7E3587C18FFE2C000EA0B60 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = B7E3587B18FFE2C000EA0B60 /* README.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +57,7 @@
 		B7E3586E18FFD73200EA0B60 /* MyMutableThreadTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyMutableThreadTests.m; sourceTree = "<group>"; };
 		B7E3587818FFD74A00EA0B60 /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
 		B7E3587918FFD74A00EA0B60 /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
+		B7E3587B18FFE2C000EA0B60 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +89,7 @@
 		B7E3583718FFD73200EA0B60 = {
 			isa = PBXGroup;
 			children = (
+				B7E3587B18FFE2C000EA0B60 /* README.md */,
 				B7E3584B18FFD73200EA0B60 /* MyMutableThread */,
 				B7E3586818FFD73200EA0B60 /* MyMutableThreadTests */,
 				B7E3584218FFD73200EA0B60 /* Frameworks */,
@@ -233,6 +236,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B7E3587C18FFE2C000EA0B60 /* README.md in Resources */,
 				B7E3585018FFD73200EA0B60 /* InfoPlist.strings in Resources */,
 				B7E3585B18FFD73200EA0B60 /* Images.xcassets in Resources */,
 			);
@@ -455,6 +459,7 @@
 				B7E3587418FFD73200EA0B60 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		B7E3587518FFD73200EA0B60 /* Build configuration list for PBXNativeTarget "MyMutableThreadTests" */ = {
 			isa = XCConfigurationList;
@@ -463,6 +468,7 @@
 				B7E3587718FFD73200EA0B60 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
