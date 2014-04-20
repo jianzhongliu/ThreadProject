@@ -26,6 +26,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [ self addObserverToCurrentRunloop];
     //下面两种方式创建开销一样的
     //NSThread第一种方式
     [NSThread detachNewThreadSelector:@selector(myThreadMainMethod) toTarget:self withObject:nil];

@@ -23,6 +23,7 @@
 		B7E3586D18FFD73200EA0B60 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B7E3586B18FFD73200EA0B60 /* InfoPlist.strings */; };
 		B7E3586F18FFD73200EA0B60 /* MyMutableThreadTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B7E3586E18FFD73200EA0B60 /* MyMutableThreadTests.m */; };
 		B7E3587A18FFD74A00EA0B60 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7E3587918FFD74A00EA0B60 /* RootViewController.m */; };
+		E4A0024D1903BF37009F405D /* AddObserverToCurrentRunloopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4A0024C1903BF37009F405D /* AddObserverToCurrentRunloopViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +57,8 @@
 		B7E3586E18FFD73200EA0B60 /* MyMutableThreadTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyMutableThreadTests.m; sourceTree = "<group>"; };
 		B7E3587818FFD74A00EA0B60 /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
 		B7E3587918FFD74A00EA0B60 /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
+		E4A0024B1903BF37009F405D /* AddObserverToCurrentRunloopViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddObserverToCurrentRunloopViewController.h; sourceTree = "<group>"; };
+		E4A0024C1903BF37009F405D /* AddObserverToCurrentRunloopViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddObserverToCurrentRunloopViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,6 +128,8 @@
 				B7E3584C18FFD73200EA0B60 /* Supporting Files */,
 				B7E3587818FFD74A00EA0B60 /* RootViewController.h */,
 				B7E3587918FFD74A00EA0B60 /* RootViewController.m */,
+				E4A0024B1903BF37009F405D /* AddObserverToCurrentRunloopViewController.h */,
+				E4A0024C1903BF37009F405D /* AddObserverToCurrentRunloopViewController.m */,
 			);
 			path = MyMutableThread;
 			sourceTree = "<group>";
@@ -254,6 +259,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B7E3585618FFD73200EA0B60 /* AppDelegate.m in Sources */,
+				E4A0024D1903BF37009F405D /* AddObserverToCurrentRunloopViewController.m in Sources */,
 				B7E3585218FFD73200EA0B60 /* main.m in Sources */,
 				B7E3587A18FFD74A00EA0B60 /* RootViewController.m in Sources */,
 				B7E3585918FFD73200EA0B60 /* MyMutableThread.xcdatamodeld in Sources */,
@@ -378,6 +384,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MyMutableThread/MyMutableThread-Prefix.pch";
 				INFOPLIST_FILE = "MyMutableThread/MyMutableThread-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -391,6 +398,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MyMutableThread/MyMutableThread-Prefix.pch";
 				INFOPLIST_FILE = "MyMutableThread/MyMutableThread-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -455,6 +463,7 @@
 				B7E3587418FFD73200EA0B60 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		B7E3587518FFD73200EA0B60 /* Build configuration list for PBXNativeTarget "MyMutableThreadTests" */ = {
 			isa = XCConfigurationList;
@@ -463,6 +472,7 @@
 				B7E3587718FFD73200EA0B60 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
