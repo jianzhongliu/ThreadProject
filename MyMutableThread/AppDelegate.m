@@ -20,12 +20,22 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
+    
+    //1，runloop中添加timer
+    NSDate *fireDate = [NSDate dateWithTimeIntervalSinceNow:5.0];
+    NSTimer *cameraTimer = [[NSTimer alloc] initWithFireDate:fireDate interval:1.0 target:self selector:@selector(timedPhotoFire) userInfo:nil repeats:YES];
+    [[NSRunLoop mainRunLoop] addTimer:cameraTimer forMode:NSDefaultRunLoopMode];
+    
     RootViewController *controller = [[RootViewController alloc] init];
     UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:controller];
     self.window.rootViewController = navi;
     [self.window makeKeyAndVisible];
     return YES;
 }
+- (void)timedPhotoFire {
+        NSLog(@"===为什么不加到runloop就不跑了====");
+}
+
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {

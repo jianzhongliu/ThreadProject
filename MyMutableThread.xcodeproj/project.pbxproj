@@ -24,6 +24,7 @@
 		B7E3586F18FFD73200EA0B60 /* MyMutableThreadTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B7E3586E18FFD73200EA0B60 /* MyMutableThreadTests.m */; };
 		B7E3587A18FFD74A00EA0B60 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7E3587918FFD74A00EA0B60 /* RootViewController.m */; };
 		E4A0024D1903BF37009F405D /* AddObserverToCurrentRunloopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4A0024C1903BF37009F405D /* AddObserverToCurrentRunloopViewController.m */; };
+		B7E3587C18FFE2C000EA0B60 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = B7E3587B18FFE2C000EA0B60 /* README.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +60,7 @@
 		B7E3587918FFD74A00EA0B60 /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
 		E4A0024B1903BF37009F405D /* AddObserverToCurrentRunloopViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddObserverToCurrentRunloopViewController.h; sourceTree = "<group>"; };
 		E4A0024C1903BF37009F405D /* AddObserverToCurrentRunloopViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddObserverToCurrentRunloopViewController.m; sourceTree = "<group>"; };
+		B7E3587B18FFE2C000EA0B60 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +92,7 @@
 		B7E3583718FFD73200EA0B60 = {
 			isa = PBXGroup;
 			children = (
+				B7E3587B18FFE2C000EA0B60 /* README.md */,
 				B7E3584B18FFD73200EA0B60 /* MyMutableThread */,
 				B7E3586818FFD73200EA0B60 /* MyMutableThreadTests */,
 				B7E3584218FFD73200EA0B60 /* Frameworks */,
@@ -238,6 +241,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B7E3587C18FFE2C000EA0B60 /* README.md in Resources */,
 				B7E3585018FFD73200EA0B60 /* InfoPlist.strings in Resources */,
 				B7E3585B18FFD73200EA0B60 /* Images.xcassets in Resources */,
 			);
