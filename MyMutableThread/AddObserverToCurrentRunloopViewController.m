@@ -22,12 +22,27 @@
     }
     return self;
 }
+- (void)click{
 
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    UIButton *but = [UIButton buttonWithType:UIButtonTypeInfoDark];
+    but.frame = CGRectMake(10, 100, 40, 40);
+    [but addTarget:self action:@selector(click) forControlEvents:UIControlEventTouchDown];
+    [self.view addSubview:but];
+    
+    NSDate *fireDate = [NSDate dateWithTimeIntervalSinceNow:10.0];
+    NSTimer *cameraTimer = [[NSTimer alloc] initWithFireDate:fireDate interval:10.0 target:self selector:@selector(timedPhotoFire) userInfo:nil repeats:NO];
+    [[NSRunLoop mainRunLoop] addTimer:cameraTimer forMode:NSDefaultRunLoopMode];
+    
     [self addObserverToCurrentRunloop];
 	// Do any additional setup after loading the view.
+}
+- (void)timedPhotoFire {
+    NSLog(@"===为什么不加到runloop就不跑了====");
 }
 - (void)addObserverToCurrentRunloop
 
@@ -36,9 +51,6 @@
     // The application uses garbage collection, so noautorelease pool is needed.
     
     NSRunLoop*myRunLoop = [NSRunLoop currentRunLoop];
-    
-    
-    
     // Create a run loop observer and attach it to the runloop.
     
     CFRunLoopObserverContext  context = {0,(__bridge void *)(self), NULL,NULL, NULL};

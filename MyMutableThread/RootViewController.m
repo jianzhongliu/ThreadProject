@@ -9,6 +9,7 @@
 #import "RootViewController.h"
 #include <assert.h>
 #include <pthread.h>
+#import "AddObserverToCurrentRunloopViewController.h"
 
 @interface RootViewController ()
 
@@ -68,22 +69,35 @@ void* PosixThreadMainRoutine(void* data)
         exitNow = [[threadDict valueForKey:@"ThreadShouldExitNow"] boolValue];
     }
 }
+- (void)click {
+    AddObserverToCurrentRunloopViewController *controller = [[AddObserverToCurrentRunloopViewController alloc] init];
+    UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:controller];
+    [self presentViewController:navi animated:YES completion:Nil];
+    
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self threadMain];
+    UIButton *but = [UIButton buttonWithType:UIButtonTypeInfoDark];
+    but.frame = CGRectMake(10, 100, 40, 40);
+    [but addTarget:self action:@selector(click) forControlEvents:UIControlEventTouchDown];
+    [self.view addSubview:but];
+    
+    
+    
+//    [self threadMain];
     //因为 POSIX 创建的线程默认情况是可连接的(joinable),下面的例子改变线程的属性来创 建一个脱离的线程。把线程标记为脱离的,当它退出的时候让系统有机会立即回收该 线程的资源。
     //利用posix来创建线程，该技术可以被任何类型的应用程序使用
-    [self LaunchThread];
+//    [self LaunchThread];
     
     //下面两种方式创建开销一样的
     //NSThread第一种方式
-    [NSThread detachNewThreadSelector:@selector(myThreadMainMethod) toTarget:self withObject:nil];
+//    [NSThread detachNewThreadSelector:@selector(myThreadMainMethod) toTarget:self withObject:nil];
     //NSThread第二种方式
-    NSThread* myThread = [[NSThread alloc] initWithTarget:self
-                                                 selector:@selector(myThreadMainMethod)
-                                                   object:nil];
-    [myThread start]; // Actually create the thread
+//    NSThread* myThread = [[NSThread alloc] initWithTarget:self
+//                                                 selector:@selector(myThreadMainMethod)
+//                                                   object:nil];
+//    [myThread start]; // Actually create the thread
     // Do any additional setup after loading the view.
 }
 - (void)threadMain
