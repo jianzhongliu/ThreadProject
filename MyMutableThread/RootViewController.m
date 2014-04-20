@@ -10,8 +10,10 @@
 #include <assert.h>
 #include <pthread.h>
 #import "AddObserverToCurrentRunloopViewController.h"
+#import "ThreadLockViewController.h"
 
 @interface RootViewController ()
+
 
 @end
 
@@ -75,6 +77,12 @@ void* PosixThreadMainRoutine(void* data)
     [self presentViewController:navi animated:YES completion:Nil];
     
 }
+- (void)click1 {
+    ThreadLockViewController *controller = [[ThreadLockViewController alloc] init];
+    UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:controller];
+    [self presentViewController:navi animated:YES completion:Nil];
+    
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -83,7 +91,12 @@ void* PosixThreadMainRoutine(void* data)
     [but addTarget:self action:@selector(click) forControlEvents:UIControlEventTouchDown];
     [self.view addSubview:but];
     
-    
+    UIButton *but1 = [UIButton buttonWithType:UIButtonTypeCustom];
+    but1.frame = CGRectMake(10, 200, 40, 40);
+    [but1 setTitle:@"lock" forState:UIControlStateNormal];
+    [but1 setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+    [but1 addTarget:self action:@selector(click1) forControlEvents:UIControlEventTouchDown];
+    [self.view addSubview:but1];
     
 //    [self threadMain];
     //因为 POSIX 创建的线程默认情况是可连接的(joinable),下面的例子改变线程的属性来创 建一个脱离的线程。把线程标记为脱离的,当它退出的时候让系统有机会立即回收该 线程的资源。

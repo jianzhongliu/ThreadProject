@@ -22,56 +22,56 @@
     }
     return self;
 }
-- (void)click{
 
+- (void)click{
+    NSRunLoop *myRunLoop = [NSRunLoop currentRunLoop];
+    CFRunLoopObserverContext  context = {0,(__bridge void *)(self), NULL,NULL, NULL};
+    
+    CFRunLoopObserverRef    observer =CFRunLoopObserverCreate(kCFAllocatorDefault,
+                                                              
+                                                              kCFRunLoopBeforeTimers,YES, 0, &myRunLoopObserver, &context);
+     CFRunLoopRef    cfLoop = [myRunLoop getCFRunLoop];
+    CFRunLoopRemoveObserver(cfLoop, observer, kCFRunLoopDefaultMode);
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
     UIButton *but = [UIButton buttonWithType:UIButtonTypeInfoDark];
     but.frame = CGRectMake(10, 100, 40, 40);
+    but.backgroundColor = [UIColor greenColor];
     [but addTarget:self action:@selector(click) forControlEvents:UIControlEventTouchDown];
     [self.view addSubview:but];
     
     NSDate *fireDate = [NSDate dateWithTimeIntervalSinceNow:10.0];
-    NSTimer *cameraTimer = [[NSTimer alloc] initWithFireDate:fireDate interval:10.0 target:self selector:@selector(timedPhotoFire) userInfo:nil repeats:NO];
+    NSTimer *cameraTimer = [[NSTimer alloc] initWithFireDate:fireDate interval:10.0 target:self selector:@selector(timedPhotoFire) userInfo:nil repeats:YES];
     [[NSRunLoop mainRunLoop] addTimer:cameraTimer forMode:NSDefaultRunLoopMode];
     
     [self addObserverToCurrentRunloop];
 	// Do any additional setup after loading the view.
 }
+
 - (void)timedPhotoFire {
     NSLog(@"===为什么不加到runloop就不跑了====");
 }
-- (void)addObserverToCurrentRunloop
 
+- (void)addObserverToCurrentRunloop
 {
-    
     // The application uses garbage collection, so noautorelease pool is needed.
-    
     NSRunLoop*myRunLoop = [NSRunLoop currentRunLoop];
     // Create a run loop observer and attach it to the runloop.
-    
     CFRunLoopObserverContext  context = {0,(__bridge void *)(self), NULL,NULL, NULL};
-    
-    CFRunLoopObserverRef    observer =CFRunLoopObserverCreate(kCFAllocatorDefault,
-                                                              
-                                                              kCFRunLoopBeforeTimers,YES, 0, &myRunLoopObserver, &context);
-    
-    
-    
+    CFRunLoopObserverRef    observer =CFRunLoopObserverCreate(kCFAllocatorDefault, kCFRunLoopBeforeTimers, YES, 0, &myRunLoopObserver, &context);
     if (observer)
-        
     {
-        
         CFRunLoopRef    cfLoop = [myRunLoop getCFRunLoop];
-        
         CFRunLoopAddObserver(cfLoop, observer, kCFRunLoopDefaultMode);
-        
     }
-    
 }
+
 void myRunLoopObserver(CFRunLoopObserverRef observer, CFRunLoopActivity activity, void *info) {
     switch (activity) {
             //The entrance of the run loop, before entering the event processing loop.

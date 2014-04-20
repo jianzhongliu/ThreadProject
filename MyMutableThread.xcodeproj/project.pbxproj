@@ -23,8 +23,10 @@
 		B7E3586D18FFD73200EA0B60 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B7E3586B18FFD73200EA0B60 /* InfoPlist.strings */; };
 		B7E3586F18FFD73200EA0B60 /* MyMutableThreadTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B7E3586E18FFD73200EA0B60 /* MyMutableThreadTests.m */; };
 		B7E3587A18FFD74A00EA0B60 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7E3587918FFD74A00EA0B60 /* RootViewController.m */; };
-		E4A0024D1903BF37009F405D /* AddObserverToCurrentRunloopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4A0024C1903BF37009F405D /* AddObserverToCurrentRunloopViewController.m */; };
 		B7E3587C18FFE2C000EA0B60 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = B7E3587B18FFE2C000EA0B60 /* README.md */; };
+		E4A0024D1903BF37009F405D /* AddObserverToCurrentRunloopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4A0024C1903BF37009F405D /* AddObserverToCurrentRunloopViewController.m */; };
+		E4A002511903D0D9009F405D /* ThreadLockViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4A002501903D0D9009F405D /* ThreadLockViewController.m */; };
+		E4BCB10E19040A800039AD02 /* LockObj.m in Sources */ = {isa = PBXBuildFile; fileRef = E4BCB10D19040A800039AD02 /* LockObj.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,9 +60,13 @@
 		B7E3586E18FFD73200EA0B60 /* MyMutableThreadTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyMutableThreadTests.m; sourceTree = "<group>"; };
 		B7E3587818FFD74A00EA0B60 /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
 		B7E3587918FFD74A00EA0B60 /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
+		B7E3587B18FFE2C000EA0B60 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		E4A0024B1903BF37009F405D /* AddObserverToCurrentRunloopViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddObserverToCurrentRunloopViewController.h; sourceTree = "<group>"; };
 		E4A0024C1903BF37009F405D /* AddObserverToCurrentRunloopViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddObserverToCurrentRunloopViewController.m; sourceTree = "<group>"; };
-		B7E3587B18FFE2C000EA0B60 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		E4A0024F1903D0D9009F405D /* ThreadLockViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThreadLockViewController.h; sourceTree = "<group>"; };
+		E4A002501903D0D9009F405D /* ThreadLockViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThreadLockViewController.m; sourceTree = "<group>"; };
+		E4BCB10C19040A800039AD02 /* LockObj.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LockObj.h; sourceTree = "<group>"; };
+		E4BCB10D19040A800039AD02 /* LockObj.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LockObj.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,6 +139,10 @@
 				B7E3587918FFD74A00EA0B60 /* RootViewController.m */,
 				E4A0024B1903BF37009F405D /* AddObserverToCurrentRunloopViewController.h */,
 				E4A0024C1903BF37009F405D /* AddObserverToCurrentRunloopViewController.m */,
+				E4A0024F1903D0D9009F405D /* ThreadLockViewController.h */,
+				E4A002501903D0D9009F405D /* ThreadLockViewController.m */,
+				E4BCB10C19040A800039AD02 /* LockObj.h */,
+				E4BCB10D19040A800039AD02 /* LockObj.m */,
 			);
 			path = MyMutableThread;
 			sourceTree = "<group>";
@@ -263,8 +273,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				B7E3585618FFD73200EA0B60 /* AppDelegate.m in Sources */,
+				E4A002511903D0D9009F405D /* ThreadLockViewController.m in Sources */,
 				E4A0024D1903BF37009F405D /* AddObserverToCurrentRunloopViewController.m in Sources */,
 				B7E3585218FFD73200EA0B60 /* main.m in Sources */,
+				E4BCB10E19040A800039AD02 /* LockObj.m in Sources */,
 				B7E3587A18FFD74A00EA0B60 /* RootViewController.m in Sources */,
 				B7E3585918FFD73200EA0B60 /* MyMutableThread.xcdatamodeld in Sources */,
 			);
