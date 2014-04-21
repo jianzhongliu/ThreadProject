@@ -10,7 +10,7 @@
 #import "LockObj.h"
 
 @interface GCDThreadFirstViewController ()
-
+@property (readwrite, strong, nonatomic) __attribute__((NSObject)) dispatch_queue_t myqueue;
 @end
 
 @implementation GCDThreadFirstViewController
@@ -19,35 +19,59 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
+        _myqueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
         // Custom initialization
     }
     return self;
 }
-
+- (void)back {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    UIButton *but1 = [UIButton buttonWithType:UIButtonTypeCustom];
+    but1.frame = CGRectMake(10, 200, 40, 40);
+    [but1 setTitle:@"start" forState:UIControlStateNormal];
+    [but1 setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+    [but1 addTarget:self action:@selector(firstGCDThreadRunINMainThread) forControlEvents:UIControlEventTouchDown];
+    [self.view addSubview:but1];
+    
+    UIButton *but2 = [UIButton buttonWithType:UIButtonTypeCustom];
+    but2.frame = CGRectMake(10, 300, 40, 40);
+    [but2 setTitle:@"back" forState:UIControlStateNormal];
+    [but2 setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+    [but2 addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchDown];
+    [self.view addSubview:but2];
+    
 //    [self firstGCDThreadRunINMainThread];//主线程队列中得线程
 //    [self secondGCDThreadForLoadIMG];//同步线程和异步线程
 //    [self thirdGCDThreadForDelayPerform];//延迟执行的线程
 //    [self forthGCDThreadForGroupThread];//分组的队列,我们可以创建很多组，每个组是一个队列，队列中得任务是串行得，
 //    [self fifthGCDThreadForMyNameQueue];//创建指定的自定义的串行队列
-    [self sixthGCDThreadForSignal];
+//    [self sixthGCDThreadForSignal];
 }
 
+- (void)dealloc {
 
+    dispatch_release(_myqueue);
+    _myqueue = nil;
+}
 - (void)firstGCDThreadRunINMainThread  {
     // 主线程队列，由系统自动创建并且与应用撑血的主线程相关联。
-    dispatch_queue_t mainQueue = dispatch_get_main_queue();
-    
+//    dispatch_queue_t mainQueue = dispatch_get_main_queue();
+    LockObj *obj = [LockObj shareInstance];
     // 要在主线程队列中，执行的Block
     //mainQueue是下面线程所在的队列
-    dispatch_async(mainQueue, ^(void) {
-        [[[UIAlertView alloc] initWithTitle:@"GCD"
-                                    message:@"GCD is amazing!"
-                                   delegate:nil cancelButtonTitle:@"OK"
-                          otherButtonTitles:nil, nil] show];
-    });
+    for (int i = 0; i < 10; i++) {
+        dispatch_async(_myqueue, ^(void) {
+            NSLog(@"===%d",i);
+            [obj secondMethodforPrintSomeWordsElse];
+            
+        });
+    }
+
 //dispatch_get_main_queue()
 // 用来得到主队列。主队列又系统自动创建并且与应用程序主线程相关联。
 // 也就是我们常说的能调用主线程修改UI的队列，即：主线程队列。

@@ -34,7 +34,7 @@
     @synchronized(self){
     NSLog(@"--------secondMethodforPrintSomeWordsElse-----%@",[[NSThread currentThread] name]);
     NSLog(@"--------secondMethodforPrintSomeWordsElse-Selector----%@",NSStringFromSelector(_cmd));
-    sleep(2);
+    sleep(1);
     NSLog(@"--------secondMethodforPrintSomeWordsElse---Current thread = %@", [NSThread currentThread]);
     NSLog(@"--------secondMethodforPrintSomeWordsElse----Main thread = %@", [NSThread mainThread]);
     }
