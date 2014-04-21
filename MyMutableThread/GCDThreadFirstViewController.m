@@ -192,13 +192,13 @@
 - (void)sixthGCDThreadForSignal {
     //主线程中
     LockObj *obj = [LockObj shareInstance];
-    dispatch_semaphore_t semaphore = dispatch_semaphore_create(3);
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(1);
     for (int i = 0; i<10; i++) {
     
     //线程1
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         long thecount= dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-        NSLog(@"----%ld",thecount);
+        NSLog(@"--1--%ld",thecount);
         [obj GCDfirstMethodforPrintSomeThing];
         dispatch_semaphore_signal(semaphore);
     });
@@ -206,7 +206,7 @@
     //线程2
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         long thecount= dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-        NSLog(@"----%ld",thecount);
+        NSLog(@"--2--%ld",thecount);
         
         [obj GCDsecondMethodforPrintSomeWordsElse];
         dispatch_semaphore_signal(semaphore);

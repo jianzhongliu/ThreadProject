@@ -34,9 +34,9 @@
     [super viewDidLoad];
     [self performSelector:@selector(background) withObject:nil afterDelay:1];
 //    [self synchronizedLockMethod];//@synchronized创建互斥锁
-    [self lockForLockAndUnlockMethod];//用lock对象管理锁
+//    [self lockForLockAndUnlockMethod];//用lock对象管理锁
 //    [self GCDThreadMethodForSemaphoreLock];
-    
+    [self forthRecursiveLock];
     // 待续。。。。。。
     
     
@@ -118,6 +118,28 @@
         [obj1 GCDsecondMethodforPrintSomeWordsElse];
         dispatch_semaphore_signal(semaphore);
     });
+    }
+}
+- (void)forthRecursiveLock{//递归锁 可以被同一线程多次锁住的锁。
+//NSRecursiveLock 类定义的锁可以在同一线程多次获得,而不会造成死锁。一个递归锁会跟踪它被多少次成功获得了。每次成功的获得该锁都必须平衡调用锁住和解 锁的操作。只有所有的锁住和解锁操作都平衡的时候,锁才真正被释放给其他线程获 得。
+    NSRecursiveLock *theLock = [[NSRecursiveLock alloc] init];
+    LockObj *obj1 = [LockObj shareInstance];
+    for (int i = 0; i < 3; i++) {
+        //线程1
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            [[NSThread currentThread] setName:[NSString stringWithFormat:@"第一个线程%d", i]];
+            [theLock lock];
+            [obj1 GCDfirstMethodforPrintSomeThing];
+            [theLock unlock];
+        });
+        
+        //线程2
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            [[NSThread currentThread] setName:[NSString stringWithFormat:@"第er个线程%d", i]];
+            [theLock lock];
+            [obj1 GCDsecondMethodforPrintSomeWordsElse];
+            [theLock unlock];
+        });
     }
 }
 @end

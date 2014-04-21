@@ -1,6 +1,6 @@
 ThreadProject
 =============
-启动 run loop 只对程序的辅助线程有意义。一个 run loop 通常必须包含一个输 入源或定时器来监听事件。如果一个都没有,run loop 启动后立即退出。
+启动 run loop 只对程序的辅助线程有意义。一个 run loop 通常必须包含一个输 入源或定时器来监听事件。如果一个都没有,run loop 启动后立即退出。每个线程都有一个或多个 run loop
 ThreadProject
 ====================下面方法定义在nsobject中，是可以在其他线程中执行的seelctor，并非是创建新线程=================================
 ￼performSelectorOnMainThread:withObject:waitUntilDone:
@@ -61,9 +61,15 @@ http://blog.sina.com.cn/s/blog_7b9d64af0101c75e.html
 
 
 
-==========================================================
+==========================术语================================
 
-
+Run loop(运行循环) 一个事件处理循环,在此期间事件被接收并分配给合适的处理例程。
+ Run loop 模式(run loop mode)
+与某一特定名称相关的输入源、定时源和 run loop 观察者的集合。当运行在 某一特定“模式”下,一个 run loop 监视和该模式相关的源和观察者。
+ Run loop 对象(run loop object)
+NSRunLoop 类或 CFRunLoopRef 不透明类型的实例。这些对象􏰁供线程里面实 现事件处理循环的接口。
+ Run loop 观察者(run loop observer)
+在 run loop 运行的不同阶段时接收通知的对象。
 
 
 ==========================================================
