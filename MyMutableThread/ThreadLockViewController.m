@@ -7,7 +7,9 @@
 //
 
 #import "ThreadLockViewController.h"
+#import "GCDThreadFirstViewController.h"
 #import "LockObj.h"
+#import "NSGlobalLock.h"
 
 @interface ThreadLockViewController ()
 
@@ -34,7 +36,7 @@
 //    [self synchronizedLockMethod];//@synchronized创建互斥锁
 //    [self lockForLockAndUnlockMethod];//用lock对象管理锁
 //    [self GCDThreadMethodForSemaphoreLock];
-    
+    [self forthRecursiveLock];
     // 待续。。。。。。
     
     
@@ -71,9 +73,9 @@
 
 - (void)lockForLockAndUnlockMethod {
 //lock和unlock配套使用
-//某个线程A调用lock方法。这样，NSLock将被上锁。可以执行“关键部分”，完成后，调用unlock方法。如果，在线程A 调用unlock方法之前，另一个线程B调用了同一锁对象的lock方法。那么，线程B只有等待。直到线程A调用了unlock----------其实在按照下面的方法来走，并且多次切换controller页面就会出问题，
+//某个线程A调用lock方法。这样，NSLock将被上锁。可以执行“关键部分”，完成后，调用unlock方法。如果，在线程A 调用unlock方法之前，另一个线程B调用了同一锁对象的lock方法。那么，线程B只有等待。直到线程A调用了unlock----------其实在按照下面的方法来走，并且多次切换controller页面就会出问题，（答案看下面对锁的单例处理）
     LockObj *obj1 = [LockObj shareInstance];
-    NSLock *lock = [[NSLock alloc] init];
+    NSGlobalLock *lock = [NSGlobalLock shareInstance];//注意，多线程的时候一定要用同一个锁，才能保证method执行完再执行其他method，不然就会出现method1执行了一半就执行method2了。
     for (int i = 0; i < 3; i++) {
     //线程1
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -116,6 +118,28 @@
         [obj1 GCDsecondMethodforPrintSomeWordsElse];
         dispatch_semaphore_signal(semaphore);
     });
+    }
+}
+- (void)forthRecursiveLock{//递归锁 可以被同一线程多次锁住的锁。
+//NSRecursiveLock 类定义的锁可以在同一线程多次获得,而不会造成死锁。一个递归锁会跟踪它被多少次成功获得了。每次成功的获得该锁都必须平衡调用锁住和解 锁的操作。只有所有的锁住和解锁操作都平衡的时候,锁才真正被释放给其他线程获 得。
+    NSRecursiveLock *theLock = [[NSRecursiveLock alloc] init];
+    LockObj *obj1 = [LockObj shareInstance];
+    for (int i = 0; i < 3; i++) {
+        //线程1
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            [[NSThread currentThread] setName:[NSString stringWithFormat:@"第一个线程%d", i]];
+            [theLock lock];
+            [obj1 GCDfirstMethodforPrintSomeThing];
+            [theLock unlock];
+        });
+        
+        //线程2
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            [[NSThread currentThread] setName:[NSString stringWithFormat:@"第er个线程%d", i]];
+            [theLock lock];
+            [obj1 GCDsecondMethodforPrintSomeWordsElse];
+            [theLock unlock];
+        });
     }
 }
 @end

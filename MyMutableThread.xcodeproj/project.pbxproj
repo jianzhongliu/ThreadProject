@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B73468E11904B05D00EEF424 /* GCDThreadFirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B73468E01904B05D00EEF424 /* GCDThreadFirstViewController.m */; };
+		B73468EE1904D49700EEF424 /* NSGlobalLock.m in Sources */ = {isa = PBXBuildFile; fileRef = B73468ED1904D49700EEF424 /* NSGlobalLock.m */; };
 		B7E3584418FFD73200EA0B60 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7E3584318FFD73200EA0B60 /* Foundation.framework */; };
 		B7E3584618FFD73200EA0B60 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7E3584518FFD73200EA0B60 /* CoreGraphics.framework */; };
 		B7E3584818FFD73200EA0B60 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7E3584718FFD73200EA0B60 /* UIKit.framework */; };
@@ -40,6 +42,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B73468DF1904B05D00EEF424 /* GCDThreadFirstViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDThreadFirstViewController.h; sourceTree = "<group>"; };
+		B73468E01904B05D00EEF424 /* GCDThreadFirstViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDThreadFirstViewController.m; sourceTree = "<group>"; };
+		B73468EC1904D49700EEF424 /* NSGlobalLock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSGlobalLock.h; sourceTree = "<group>"; };
+		B73468ED1904D49700EEF424 /* NSGlobalLock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSGlobalLock.m; sourceTree = "<group>"; };
 		B7E3584018FFD73200EA0B60 /* MyMutableThread.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyMutableThread.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B7E3584318FFD73200EA0B60 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		B7E3584518FFD73200EA0B60 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -95,6 +101,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B73468EF1904D65A00EEF424 /* UtilObj */ = {
+			isa = PBXGroup;
+			children = (
+				E4BCB10C19040A800039AD02 /* LockObj.h */,
+				E4BCB10D19040A800039AD02 /* LockObj.m */,
+				B73468EC1904D49700EEF424 /* NSGlobalLock.h */,
+				B73468ED1904D49700EEF424 /* NSGlobalLock.m */,
+			);
+			name = UtilObj;
+			sourceTree = "<group>";
+		};
 		B7E3583718FFD73200EA0B60 = {
 			isa = PBXGroup;
 			children = (
@@ -130,6 +147,7 @@
 		B7E3584B18FFD73200EA0B60 /* MyMutableThread */ = {
 			isa = PBXGroup;
 			children = (
+				B73468EF1904D65A00EEF424 /* UtilObj */,
 				B7E3585418FFD73200EA0B60 /* AppDelegate.h */,
 				B7E3585518FFD73200EA0B60 /* AppDelegate.m */,
 				B7E3585A18FFD73200EA0B60 /* Images.xcassets */,
@@ -141,8 +159,8 @@
 				E4A0024C1903BF37009F405D /* AddObserverToCurrentRunloopViewController.m */,
 				E4A0024F1903D0D9009F405D /* ThreadLockViewController.h */,
 				E4A002501903D0D9009F405D /* ThreadLockViewController.m */,
-				E4BCB10C19040A800039AD02 /* LockObj.h */,
-				E4BCB10D19040A800039AD02 /* LockObj.m */,
+				B73468DF1904B05D00EEF424 /* GCDThreadFirstViewController.h */,
+				B73468E01904B05D00EEF424 /* GCDThreadFirstViewController.m */,
 			);
 			path = MyMutableThread;
 			sourceTree = "<group>";
@@ -274,10 +292,12 @@
 			files = (
 				B7E3585618FFD73200EA0B60 /* AppDelegate.m in Sources */,
 				E4A002511903D0D9009F405D /* ThreadLockViewController.m in Sources */,
+				B73468EE1904D49700EEF424 /* NSGlobalLock.m in Sources */,
 				E4A0024D1903BF37009F405D /* AddObserverToCurrentRunloopViewController.m in Sources */,
 				B7E3585218FFD73200EA0B60 /* main.m in Sources */,
 				E4BCB10E19040A800039AD02 /* LockObj.m in Sources */,
 				B7E3587A18FFD74A00EA0B60 /* RootViewController.m in Sources */,
+				B73468E11904B05D00EEF424 /* GCDThreadFirstViewController.m in Sources */,
 				B7E3585918FFD73200EA0B60 /* MyMutableThread.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

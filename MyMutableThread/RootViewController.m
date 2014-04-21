@@ -11,6 +11,7 @@
 #include <pthread.h>
 #import "AddObserverToCurrentRunloopViewController.h"
 #import "ThreadLockViewController.h"
+#import "GCDThreadFirstViewController.h"
 
 @interface RootViewController ()
 
@@ -83,6 +84,12 @@ void* PosixThreadMainRoutine(void* data)
     [self presentViewController:navi animated:YES completion:Nil];
     
 }
+- (void)click2 {
+    GCDThreadFirstViewController *controller = [[GCDThreadFirstViewController alloc] init];
+    UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:controller];
+    [self presentViewController:navi animated:YES completion:Nil];
+    
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -98,6 +105,12 @@ void* PosixThreadMainRoutine(void* data)
     [but1 addTarget:self action:@selector(click1) forControlEvents:UIControlEventTouchDown];
     [self.view addSubview:but1];
     
+    UIButton *but2 = [UIButton buttonWithType:UIButtonTypeCustom];
+    but2.frame = CGRectMake(10, 300, 40, 40);
+    [but2 setTitle:@"GCD" forState:UIControlStateNormal];
+    [but2 setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+    [but2 addTarget:self action:@selector(click2) forControlEvents:UIControlEventTouchDown];
+    [self.view addSubview:but2];
 //    [self threadMain];
     //因为 POSIX 创建的线程默认情况是可连接的(joinable),下面的例子改变线程的属性来创 建一个脱离的线程。把线程标记为脱离的,当它退出的时候让系统有机会立即回收该 线程的资源。
     //利用posix来创建线程，该技术可以被任何类型的应用程序使用
@@ -113,6 +126,7 @@ void* PosixThreadMainRoutine(void* data)
 //    [myThread start]; // Actually create the thread
     // Do any additional setup after loading the view.
 }
+
 - (void)threadMain
 {
     // The application uses garbage collection, so no autorelease pool is needed.
@@ -136,9 +150,11 @@ void* PosixThreadMainRoutine(void* data)
     }
     while (loopCount > 0);
 }
+
 - (void)doFireTimer {
-    NSLog(@">>>>>");
+
 }
+
 - (void)myThreadMainMethod {
 
 }
