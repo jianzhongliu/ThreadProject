@@ -36,7 +36,7 @@ Run loop 在你要和线程有更多的交互时才需要,比如以下情况:
 
 Run loop 对象提供了添加输入源,定时器和 run loop 的观察者以及启动 run loop 的接口
 每个线程都有唯一的与之关联的 run loop 对象。在 Cocoa 中,该对象是 NSRunLoop 类的一个实例
-========================获得runloop==================================
+========================获得runloop===================没走通===============
 //把当前监听netserviece的输入源加入到runloop，然后移除
     NSNetService *service = [[NSNetService alloc] initWithDomain:@"local" type:@"_crypttest._tcp" name:[[UIDevice currentDevice] name] port:55663];
     [service publish];//通知接收者
@@ -67,9 +67,8 @@ Run loop(运行循环) 一个事件处理循环,在此期间事件被接收并�
  Run loop 模式(run loop mode)
 与某一特定名称相关的输入源、定时源和 run loop 观察者的集合。当运行在 某一特定“模式”下,一个 run loop 监视和该模式相关的源和观察者。
  Run loop 对象(run loop object)
-NSRunLoop 类或 CFRunLoopRef 不透明类型的实例。这些对象􏰁供线程里面实 现事件处理循环的接口。
- Run loop 观察者(run loop observer)
-在 run loop 运行的不同阶段时接收通知的对象。
+NSRunLoop 类或 CFRunLoopRef 不透明类型的实例。这些对象供线程里面实现事件处理循环的接口。
+ Run loop 观察者(run loop observer)在 run loop 运行的不同阶段时接收通知的对象。
 
 
 ==========================================================
@@ -81,10 +80,10 @@ NSRunLoop 类或 CFRunLoopRef 不透明类型的实例。这些对象􏰁供线�
 
 
 
-==========================================================
+=========================ios常用的宏=================================
 
-
-
-
+http://965678322.blog.51cto.com/4935622/1281406
+//ios国外常用网站
+http://blog.sina.com.cn/s/blog_4b55f6860101hi53.html
 
 ==========================================================

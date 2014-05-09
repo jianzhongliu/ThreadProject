@@ -48,7 +48,10 @@
     
     NSDate *fireDate = [NSDate dateWithTimeIntervalSinceNow:10.0];
     NSTimer *cameraTimer = [[NSTimer alloc] initWithFireDate:fireDate interval:10.0 target:self selector:@selector(timedPhotoFire) userInfo:nil repeats:YES];
-    [[NSRunLoop mainRunLoop] addTimer:cameraTimer forMode:NSDefaultRunLoopMode];
+    NSRunLoop *timerRunLoop = [NSRunLoop mainRunLoop];
+    [timerRunLoop addTimer:cameraTimer forMode:NSDefaultRunLoopMode];
+    [timerRunLoop run];
+//    [[NSRunLoop mainRunLoop] addTimer:cameraTimer forMode:NSDefaultRunLoopMode];
     
     [self addObserverToCurrentRunloop];
 	// Do any additional setup after loading the view.

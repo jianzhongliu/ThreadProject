@@ -12,6 +12,7 @@
 #import "AddObserverToCurrentRunloopViewController.h"
 #import "ThreadLockViewController.h"
 #import "GCDThreadFirstViewController.h"
+#import "OperationObjectManager.h"
 
 @interface RootViewController ()
 
@@ -29,6 +30,45 @@
     return self;
 }
 
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    UIButton *but = [UIButton buttonWithType:UIButtonTypeInfoDark];
+    but.frame = CGRectMake(10, 100, 40, 40);
+    [but addTarget:self action:@selector(click) forControlEvents:UIControlEventTouchDown];
+    [self.view addSubview:but];
+    
+    UIButton *but1 = [UIButton buttonWithType:UIButtonTypeCustom];
+    but1.frame = CGRectMake(10, 200, 40, 40);
+    [but1 setTitle:@"lock" forState:UIControlStateNormal];
+    [but1 setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+    [but1 addTarget:self action:@selector(click1) forControlEvents:UIControlEventTouchDown];
+    [self.view addSubview:but1];
+    
+    UIButton *but2 = [UIButton buttonWithType:UIButtonTypeCustom];
+    but2.frame = CGRectMake(10, 300, 40, 40);
+    [but2 setTitle:@"GCD" forState:UIControlStateNormal];
+    [but2 setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+    [but2 addTarget:self action:@selector(click2) forControlEvents:UIControlEventTouchDown];
+    [self.view addSubview:but2];
+    
+    [[OperationObjectManager shareInstance] secondOperationForBlockOperation];
+    
+    //    [self threadMain];
+    //因为 POSIX 创建的线程默认情况是可连接的(joinable),下面的例子改变线程的属性来创 建一个脱离的线程。把线程标记为脱离的,当它退出的时候让系统有机会立即回收该 线程的资源。
+    //利用posix来创建线程，该技术可以被任何类型的应用程序使用
+    //    [self LaunchThread];
+    
+    //下面两种方式创建开销一样的
+    //NSThread第一种方式
+    //    [NSThread detachNewThreadSelector:@selector(myThreadMainMethod) toTarget:self withObject:nil];
+    //NSThread第二种方式
+    //    NSThread* myThread = [[NSThread alloc] initWithTarget:self
+    //                                                 selector:@selector(myThreadMainMethod)
+    //                                                   object:nil];
+    //    [myThread start]; // Actually create the thread
+    // Do any additional setup after loading the view.
+}
 void* PosixThreadMainRoutine(void* data)
 {
     return NULL;
@@ -90,42 +130,7 @@ void* PosixThreadMainRoutine(void* data)
     [self presentViewController:navi animated:YES completion:Nil];
     
 }
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    UIButton *but = [UIButton buttonWithType:UIButtonTypeInfoDark];
-    but.frame = CGRectMake(10, 100, 40, 40);
-    [but addTarget:self action:@selector(click) forControlEvents:UIControlEventTouchDown];
-    [self.view addSubview:but];
-    
-    UIButton *but1 = [UIButton buttonWithType:UIButtonTypeCustom];
-    but1.frame = CGRectMake(10, 200, 40, 40);
-    [but1 setTitle:@"lock" forState:UIControlStateNormal];
-    [but1 setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-    [but1 addTarget:self action:@selector(click1) forControlEvents:UIControlEventTouchDown];
-    [self.view addSubview:but1];
-    
-    UIButton *but2 = [UIButton buttonWithType:UIButtonTypeCustom];
-    but2.frame = CGRectMake(10, 300, 40, 40);
-    [but2 setTitle:@"GCD" forState:UIControlStateNormal];
-    [but2 setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-    [but2 addTarget:self action:@selector(click2) forControlEvents:UIControlEventTouchDown];
-    [self.view addSubview:but2];
-//    [self threadMain];
-    //因为 POSIX 创建的线程默认情况是可连接的(joinable),下面的例子改变线程的属性来创 建一个脱离的线程。把线程标记为脱离的,当它退出的时候让系统有机会立即回收该 线程的资源。
-    //利用posix来创建线程，该技术可以被任何类型的应用程序使用
-//    [self LaunchThread];
-    
-    //下面两种方式创建开销一样的
-    //NSThread第一种方式
-//    [NSThread detachNewThreadSelector:@selector(myThreadMainMethod) toTarget:self withObject:nil];
-    //NSThread第二种方式
-//    NSThread* myThread = [[NSThread alloc] initWithTarget:self
-//                                                 selector:@selector(myThreadMainMethod)
-//                                                   object:nil];
-//    [myThread start]; // Actually create the thread
-    // Do any additional setup after loading the view.
-}
+
 
 - (void)threadMain
 {
