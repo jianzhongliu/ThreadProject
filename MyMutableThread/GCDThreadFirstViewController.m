@@ -24,9 +24,11 @@
     }
     return self;
 }
+
 - (void)back {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -48,24 +50,30 @@
 //    [self firstGCDThreadRunINMainThread];//主线程队列中得线程
 //    [self secondGCDThreadForLoadIMG];//同步线程和异步线程
 //    [self thirdGCDThreadForDelayPerform];//延迟执行的线程
-//    [self forthGCDThreadForGroupThread];//分组的队列,我们可以创建很多组，每个组是一个队列，队列中得任务是串行得，
+    [self forthGCDThreadForGroupThread];//分组的队列,我们可以创建很多组，每个组是一个队列，队列中得任务是串行得，
 //    [self fifthGCDThreadForMyNameQueue];//创建指定的自定义的串行队列
 //    [self sixthGCDThreadForSignal];
 }
 
 - (void)dealloc {
-
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
+    });
     dispatch_release(_myqueue);
     _myqueue = nil;
 }
+/**
+ 
+ 
+ */
 - (void)firstGCDThreadRunINMainThread  {
     // 主线程队列，由系统自动创建并且与应用撑血的主线程相关联。
-//    dispatch_queue_t mainQueue = dispatch_get_main_queue();
+    dispatch_queue_t mainQueue = dispatch_get_main_queue();
     LockObj *obj = [LockObj shareInstance];
     // 要在主线程队列中，执行的Block
     //mainQueue是下面线程所在的队列
     for (int i = 0; i < 10; i++) {
-        dispatch_async(_myqueue, ^(void) {
+        dispatch_async(mainQueue, ^(void) {
             NSLog(@"===%d",i);
             [obj secondMethodforPrintSomeWordsElse];
             
@@ -81,12 +89,17 @@
 //第一个参数线程优先级，第二个参数设0（？）
     
 }
-
+/**
+ 
+ 
+ */
 - (void)secondGCDThreadForLoadIMG {
     dispatch_queue_t concurrentQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     dispatch_async(concurrentQueue, ^{//整个流程是异步线程执行
         __block UIImage *image = nil;
         dispatch_sync(concurrentQueue, ^{// 同步下载图片
+            NSLog(@"Image is downloading.");
+            sleep(2);
             NSString *urlAsString = @"http://img0.bdstatic.com/img/image/shouye/dengni14.jpg";
             NSURL *url = [NSURL URLWithString:urlAsString];
             NSURLRequest *urlRequest = [NSURLRequest requestWithURL:url];
@@ -103,8 +116,11 @@
         });
         
         dispatch_sync(dispatch_get_main_queue(), ^{
+            
             // 直到下载图片完成，再调用主线程，更新UI
             if (image != nil){
+                NSLog(@"Image is downloaded.");
+                sleep(2);
                 UIImageView *imageView = [[UIImageView alloc] initWithFrame:self.view.bounds];
                 [imageView setImage:image];
                 [imageView setContentMode:UIViewContentModeScaleAspectFit];
@@ -115,9 +131,12 @@
         });
     });
 }
-
+/**
+ 
+ 
+ */
 - (void)thirdGCDThreadForDelayPerform {
-    double delayInSeconds = 2.0;
+    double delayInSeconds = 5.0;
     
     // 创建延期的时间 2S，因为dispatch_time使用的时间是纳秒，尼玛，比毫秒还小，太夸张了！！！
     //dispatch_time第一个参数指定的开始点，可以用 DISPATCH_TIME_NOW 来指定一个当前的时间点,第二个参数是纳秒数
@@ -130,7 +149,12 @@
         
     });
 }
-
+/**
+ 注意：当所有线程在同一个queue中执行，并且在同一个group中执行，才会得到理想的结果，当改变其中一个任务的queue就会分成多条线去执行了，不会是原来的在一个group中逐一执行
+ 
+ group的好处，当很多的任务执行完，会有Dispatch_group_notify执行，而queue不会知道到底走完没有。
+ 
+ */
 - (void)forthGCDThreadForGroupThread {
     dispatch_group_t taskGroup = dispatch_group_create();// 创建一个调度组
     dispatch_queue_t mainQueue = dispatch_get_main_queue();// 创建队列
@@ -162,7 +186,8 @@
         NSLog(@"===========第三个任务2");
 //        [self reloadImageView];
     });
-    
+//    dispatch_group_wait(taskGroup,dispatch_time(DISPATCH_TIME_NOW,
+//));
     // 当指定调度组（taskGroup）中的所有Block都执行完成后，将执行给定的Block，用指定的队列（mainQueue）。
     dispatch_group_notify(taskGroup, mainQueue, ^{
         // 指定的Block
@@ -176,7 +201,10 @@
     dispatch_release(taskGroup);
 
 }
-
+/**
+ 
+ 
+ */
 - (void)fifthGCDThreadForMyNameQueue {
     // 创建指定的自定义的串行队列
     dispatch_queue_t firstSerialQueue = dispatch_queue_create("jianzhongliu--swweaper5", NULL);
@@ -212,7 +240,10 @@
         NSLog(@"Main thread = %@", [NSThread mainThread]);
     });
 }
-
+/**
+ 
+ 
+ */
 - (void)sixthGCDThreadForSignal {
     //主线程中
     LockObj *obj = [LockObj shareInstance];

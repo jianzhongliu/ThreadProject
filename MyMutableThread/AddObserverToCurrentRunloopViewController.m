@@ -27,9 +27,7 @@
     NSRunLoop *myRunLoop = [NSRunLoop currentRunLoop];
     CFRunLoopObserverContext  context = {0,(__bridge void *)(self), NULL,NULL, NULL};
     
-    CFRunLoopObserverRef    observer =CFRunLoopObserverCreate(kCFAllocatorDefault,
-                                                              
-                                                              kCFRunLoopBeforeTimers,YES, 0, &myRunLoopObserver, &context);
+    CFRunLoopObserverRef    observer =CFRunLoopObserverCreate(kCFAllocatorDefault, kCFRunLoopBeforeTimers,YES, 0, &myRunLoopObserver, &context);
      CFRunLoopRef    cfLoop = [myRunLoop getCFRunLoop];
     CFRunLoopRemoveObserver(cfLoop, observer, kCFRunLoopDefaultMode);
     

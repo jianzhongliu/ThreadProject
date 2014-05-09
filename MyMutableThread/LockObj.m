@@ -11,7 +11,7 @@
 @implementation LockObj
 + (instancetype)shareInstance {
     static LockObj *lockobj = nil;
-    static dispatch_once_t onceToken;
+    static dispatch_once_t onceToken;//dispatch_once_t是long型数据类型，默认为0
     dispatch_once(&onceToken, ^{
         if (lockobj == nil) {
             NSLog(@"========%@", [[NSThread currentThread] name]);
@@ -20,8 +20,13 @@
     });
     return lockobj;
 }
+/**
+ 互斥锁：
+ @synchronized可以保证下面的代码块不被打断，当不要这个互斥锁，很多线程跑到这里就会乱掉（有时先打印前两句再打印2里面的前两句）--这只是现象，什么是互斥锁？
+ 
+ */
 - (void)firstMethodforPrintSomeThing{
-    @synchronized(self){//@synchronized可以保证下面的代码块不被打断，当不要这个互斥锁，很多线程跑到这里就会乱掉（有时先打印前两句再打印2里面的前两句）
+    @synchronized(self){
     NSLog(@"------firstMethodforPrintSomeThing=====%@",[[NSThread currentThread] name]);
     NSLog(@"------firstMethodforPrintSomeThing--Selector%@",NSStringFromSelector(_cmd));
     sleep(1);

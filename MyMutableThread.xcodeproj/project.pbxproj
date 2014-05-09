@@ -159,6 +159,7 @@
 		B7E3584B18FFD73200EA0B60 /* MyMutableThread */ = {
 			isa = PBXGroup;
 			children = (
+				B7EFB6F3191C762D0071CEF1 /* Controllers */,
 				B789588E190904DB00E9D05E /* Operation */,
 				B73468EF1904D65A00EEF424 /* UtilObj */,
 				B7E3585418FFD73200EA0B60 /* AppDelegate.h */,
@@ -166,14 +167,6 @@
 				B7E3585A18FFD73200EA0B60 /* Images.xcassets */,
 				B7E3585718FFD73200EA0B60 /* MyMutableThread.xcdatamodeld */,
 				B7E3584C18FFD73200EA0B60 /* Supporting Files */,
-				B7E3587818FFD74A00EA0B60 /* RootViewController.h */,
-				B7E3587918FFD74A00EA0B60 /* RootViewController.m */,
-				E4A0024B1903BF37009F405D /* AddObserverToCurrentRunloopViewController.h */,
-				E4A0024C1903BF37009F405D /* AddObserverToCurrentRunloopViewController.m */,
-				E4A0024F1903D0D9009F405D /* ThreadLockViewController.h */,
-				E4A002501903D0D9009F405D /* ThreadLockViewController.m */,
-				B73468DF1904B05D00EEF424 /* GCDThreadFirstViewController.h */,
-				B73468E01904B05D00EEF424 /* GCDThreadFirstViewController.m */,
 			);
 			path = MyMutableThread;
 			sourceTree = "<group>";
@@ -205,6 +198,21 @@
 				B7E3586B18FFD73200EA0B60 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		B7EFB6F3191C762D0071CEF1 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				B7E3587818FFD74A00EA0B60 /* RootViewController.h */,
+				B7E3587918FFD74A00EA0B60 /* RootViewController.m */,
+				E4A0024B1903BF37009F405D /* AddObserverToCurrentRunloopViewController.h */,
+				E4A0024C1903BF37009F405D /* AddObserverToCurrentRunloopViewController.m */,
+				E4A0024F1903D0D9009F405D /* ThreadLockViewController.h */,
+				E4A002501903D0D9009F405D /* ThreadLockViewController.m */,
+				B73468DF1904B05D00EEF424 /* GCDThreadFirstViewController.h */,
+				B73468E01904B05D00EEF424 /* GCDThreadFirstViewController.m */,
+			);
+			name = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
