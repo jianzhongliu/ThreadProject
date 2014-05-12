@@ -133,13 +133,13 @@
 }
 /**
  
+ // 创建延期的时间 2S，因为dispatch_time使用的时间是纳秒，尼玛，比毫秒还小，太夸张了！！！
+ //dispatch_time第一个参数指定的开始点，可以用 DISPATCH_TIME_NOW 来指定一个当前的时间点,第二个参数是纳秒数
  
  */
 - (void)thirdGCDThreadForDelayPerform {
     double delayInSeconds = 5.0;
-    
-    // 创建延期的时间 2S，因为dispatch_time使用的时间是纳秒，尼玛，比毫秒还小，太夸张了！！！
-    //dispatch_time第一个参数指定的开始点，可以用 DISPATCH_TIME_NOW 来指定一个当前的时间点,第二个参数是纳秒数
+
     dispatch_time_t delayInNanoSeconds =dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
     // 得到全局队列
     dispatch_queue_t concurrentQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);

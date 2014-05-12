@@ -11,6 +11,12 @@ LockObj--------------------------------a obj for test lock
 
 MyClass--------------------------------NSInvocation
 
+=================================
+how i declare a block
+http://fuckingblocksyntax.com
+=================================
+
+
 
 ThreadProject
 =============
