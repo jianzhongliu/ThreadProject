@@ -50,8 +50,8 @@
 //    [self firstGCDThreadRunINMainThread];//主线程队列中得线程
 //    [self secondGCDThreadForLoadIMG];//同步线程和异步线程
 //    [self thirdGCDThreadForDelayPerform];//延迟执行的线程
-    [self forthGCDThreadForGroupThread];//分组的队列,我们可以创建很多组，每个组是一个队列，队列中得任务是串行得，
-//    [self fifthGCDThreadForMyNameQueue];//创建指定的自定义的串行队列
+//    [self forthGCDThreadForGroupThread];//分组的队列,我们可以创建很多组，每个组是一个队列，队列中得任务是串行得，
+    [self fifthGCDThreadForMyNameQueue];//创建指定的自定义的串行队列
 //    [self sixthGCDThreadForSignal];
 }
 
@@ -218,13 +218,15 @@
     });
     
     dispatch_async(firstSerialQueue, ^{
-        NSUInteger counter = 0; for (counter = 0;counter < 5;counter++){
+        NSUInteger counter = 0;
+        for (counter = 0;counter < 5;counter++){
             NSLog(@"Second iteration, counter = %lu", (unsigned long)counter);
             NSLog(@"Current thread = %@", [NSThread currentThread]);
         }
     });
     
-    dispatch_async(firstSerialQueue, ^{ NSUInteger counter = 0;
+    dispatch_async(firstSerialQueue, ^{
+        NSUInteger counter = 0;
         for (counter = 0;counter < 5;counter++){
             NSLog(@"Third iteration, counter = %lu", (unsigned long)counter);
             NSLog(@"Current thread = %@", [NSThread currentThread]);

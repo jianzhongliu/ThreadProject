@@ -12,6 +12,6 @@
 + (instancetype)shareInstance;
 
 - (void)secondOperationForBlockOperation;
-
+- (void)firstOperationOfBlockOperation;
 
 @end

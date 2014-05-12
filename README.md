@@ -1,3 +1,17 @@
+class Refrence
+RootViewController---------------------a importor of even kind of thread
+
+AddObserverToCurrentRunloopViewController----runloop & observer
+ThreadLockViewController---------------lock used in thread
+GCDThreadFirstViewController-----------GCD Thread methods
+
+
+OperationObjectManager ----------------some kind of operation
+LockObj--------------------------------a obj for test lock
+
+MyClass--------------------------------NSInvocation
+
+
 ThreadProject
 =============
 启动 run loop 只对程序的辅助线程有意义。一个 run loop 通常必须包含一个输 入源或定时器来监听事件。如果一个都没有,run loop 启动后立即退出。每个线程都有一个或多个 run loop
