@@ -17,6 +17,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss:SSS"];
+   
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
@@ -26,8 +29,10 @@
     
     RootViewController *controller = [[RootViewController alloc] init];
     UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:controller];
+     NSLog(@"7867381290%@", [formatter stringFromDate:[NSDate date]]);
     self.window.rootViewController = navi;
     [self.window makeKeyAndVisible];
+    NSLog(@"7867381290%@", [formatter stringFromDate:[NSDate date]]);
     return YES;
 }
 

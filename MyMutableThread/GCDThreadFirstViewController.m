@@ -62,7 +62,8 @@
 //    [self forthGCDThreadForGroupThread];//分组的队列,我们可以创建很多组，每个组是一个队列，队列中得任务是串行得，
 //    [self fifthGCDThreadForMyNameQueue];//创建指定的自定义的串行队列
 //    [self sixthGCDThreadForSignal];
-    [self seventhGCDThreadForCancelBlock];
+//    [self seventhGCDThreadForCancelBlock];//通过bool值取消gcd线程，需要点击cancelThread按钮中断线程的继续。
+    [self eighthGCDThreadForSemaphore];
 }
 
 - (void)dealloc {
@@ -308,87 +309,34 @@
         if (obj.isCancel) {
             return ;
         }
-        sleep(2);
-        NSLog(@"---两秒后继续---");
-        if (obj.isCancel) {
-            return ;
-        }
-        sleep(2);
-        NSLog(@"---两秒后继续---");
-        if (obj.isCancel) {
-            return ;
-        }
-        sleep(2);
-        NSLog(@"---两秒后继续---");
-        if (obj.isCancel) {
-            return ;
-        }
-        sleep(2);
-        NSLog(@"---两秒后继续---");
-        if (obj.isCancel) {
-            return ;
-        }
-        sleep(2);
-        NSLog(@"---两秒后继续---");
-        if (obj.isCancel) {
-            return ;
-        }
-        sleep(2);
-        NSLog(@"---两秒后继续---");
-        if (obj.isCancel) {
-            return ;
-        }
-        sleep(2);
-        NSLog(@"---两秒后继续---");
-        if (obj.isCancel) {
-            return ;
-        }
-        sleep(2);
-        NSLog(@"---两秒后继续---");
-        if (obj.isCancel) {
-            return ;
-        }
-        sleep(2);
-        NSLog(@"---两秒后继续---");
-        if (obj.isCancel) {
-            return ;
-        }
-        sleep(2);
-        NSLog(@"---两秒后继续---");
-        if (obj.isCancel) {
-            return ;
-        }
-        sleep(2);
-        NSLog(@"---两秒后继续---");
-        if (obj.isCancel) {
-            return ;
-        }
-        sleep(2);
-        NSLog(@"---两秒后继续---");
-        if (obj.isCancel) {
-            return ;
-        }
-        sleep(2);
-        NSLog(@"---两秒后继续---");
-        if (obj.isCancel) {
-            return ;
-        }
-        sleep(2);
-        NSLog(@"---两秒后继续---");
-        if (obj.isCancel) {
-            return ;
-        }
-        sleep(2);
-        NSLog(@"---两秒后继续---");
-        if (obj.isCancel) {
-            return ;
-        }
-        sleep(2);
-        NSLog(@"---两秒后继续---");
-        if (obj.isCancel) {
-            return ;
-        }
         
     });
 }
+
+/**
+ 当我们在处理一系列线程的时候，当数量达到一定量，在以前我们可能会选择使用NSOperationQueue来处理并发控制，但如何在GCD中快速的控制并发呢？答案就是dispatch_semaphore，对经常做unix开发的人来讲，我所介绍的内容可能就显得非常入门级了，信号量在他们的多线程开发中再平常不过了。
+ 　　信号量是一个整形值并且具有一个初始计数值，并且支持两个操作：信号通知和等待。当一个信号量被信号通知，其计数会被增加。当一个线程在一个信号量上等待时，线程会被阻塞（如果有必要的话），直至计数器大于零，然后线程会减少这个计数。
+ 　　在GCD中有三个函数是semaphore的操作，分别是：
+ 　　dispatch_semaphore_create　　　创建一个semaphore
+ 　　dispatch_semaphore_signal　　　发送一个信号
+ 　　dispatch_semaphore_wait　　　　等待信号/会阻塞当前线程
+ 　　简单的介绍一下这三个函数，第一个函数有一个整形的参数，我们可以理解为信号的总量，dispatch_semaphore_signal是发送一个信号，自然会让信号总量加1，dispatch_semaphore_wait等待信号，当信号总量少于0的时候就会一直等待，否则就可以正常的执行，并让信号总量-1，根据这样的原理，我们便可以快速的创建一个并发控制来同步任务和有限资源访问控制。
+*/
+
+- (void)eighthGCDThreadForSemaphore {
+    dispatch_group_t group = dispatch_group_create();
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(1);
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    for (int i = 0; i < 3; i++)
+    {
+        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+        dispatch_group_async(group, queue, ^{
+            NSLog(@"%i",i);
+            sleep(2);
+            dispatch_semaphore_signal(semaphore);
+        });
+    }
+    dispatch_group_wait(group, DISPATCH_TIME_FOREVER);
+}
+
 @end
