@@ -10,7 +10,8 @@
 #import "LockObj.h"
 
 @interface GCDThreadFirstViewController ()
-@property (readwrite, strong, nonatomic) __attribute__((NSObject)) dispatch_queue_t myqueue;
+@property (readwrite, strong, nonatomic)  dispatch_queue_t myqueue;
+@property BOOL isCancel;
 @end
 
 @implementation GCDThreadFirstViewController
@@ -21,6 +22,7 @@
     if (self) {
         _myqueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
         // Custom initialization
+        _isCancel = NO;
     }
     return self;
 }
@@ -47,26 +49,40 @@
     [but2 addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchDown];
     [self.view addSubview:but2];
     
+    UIButton *but3 = [UIButton buttonWithType:UIButtonTypeCustom];
+    but3.frame = CGRectMake(10, 400, 130, 40);
+    [but3 setTitle:@"cancelThread" forState:UIControlStateNormal];
+    [but3 setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+    [but3 addTarget:self action:@selector(cancel) forControlEvents:UIControlEventTouchDown];
+    [self.view addSubview:but3];
+    
 //    [self firstGCDThreadRunINMainThread];//主线程队列中得线程
 //    [self secondGCDThreadForLoadIMG];//同步线程和异步线程
 //    [self thirdGCDThreadForDelayPerform];//延迟执行的线程
 //    [self forthGCDThreadForGroupThread];//分组的队列,我们可以创建很多组，每个组是一个队列，队列中得任务是串行得，
-    [self fifthGCDThreadForMyNameQueue];//创建指定的自定义的串行队列
+//    [self fifthGCDThreadForMyNameQueue];//创建指定的自定义的串行队列
 //    [self sixthGCDThreadForSignal];
+    [self seventhGCDThreadForCancelBlock];
 }
 
 - (void)dealloc {
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         
     });
-    dispatch_release(_myqueue);
+//    dispatch_release(_myqueue);
     _myqueue = nil;
+}
+
+
+- (void)cancel {
+    self.isCancel = YES;
 }
 /**
  
  
  */
 - (void)firstGCDThreadRunINMainThread  {
+    
     // 主线程队列，由系统自动创建并且与应用撑血的主线程相关联。
     dispatch_queue_t mainQueue = dispatch_get_main_queue();
     LockObj *obj = [LockObj shareInstance];
@@ -198,7 +214,7 @@
     });
     
     // 最后，必须release 掉调度组（taskGroup）
-    dispatch_release(taskGroup);
+//    dispatch_release(taskGroup);
 
 }
 /**
@@ -234,7 +250,7 @@
     });
     
     // 销毁队列
-    dispatch_release(firstSerialQueue);
+//    dispatch_release(firstSerialQueue);
     
     // 输出主队列，比较会发现，我们自定义的队列，并不在主线程上，效率还是蛮高的。
     dispatch_queue_t mainQueue1 = dispatch_get_main_queue();
@@ -269,5 +285,110 @@
         dispatch_semaphore_signal(semaphore);
     });
     }
+}
+
+- (void)seventhGCDThreadForCancelBlock {
+    __weak GCDThreadFirstViewController *obj = self;
+    
+    dispatch_queue_t myqueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+
+    dispatch_async(myqueue, ^{
+        sleep(2);
+        NSLog(@"---两秒后继续---");
+        if (obj.isCancel) {
+            return ;
+        }
+        sleep(2);
+        NSLog(@"---两秒后继续---");
+        if (obj.isCancel) {
+            return ;
+        }
+        sleep(2);
+        NSLog(@"---两秒后继续---");
+        if (obj.isCancel) {
+            return ;
+        }
+        sleep(2);
+        NSLog(@"---两秒后继续---");
+        if (obj.isCancel) {
+            return ;
+        }
+        sleep(2);
+        NSLog(@"---两秒后继续---");
+        if (obj.isCancel) {
+            return ;
+        }
+        sleep(2);
+        NSLog(@"---两秒后继续---");
+        if (obj.isCancel) {
+            return ;
+        }
+        sleep(2);
+        NSLog(@"---两秒后继续---");
+        if (obj.isCancel) {
+            return ;
+        }
+        sleep(2);
+        NSLog(@"---两秒后继续---");
+        if (obj.isCancel) {
+            return ;
+        }
+        sleep(2);
+        NSLog(@"---两秒后继续---");
+        if (obj.isCancel) {
+            return ;
+        }
+        sleep(2);
+        NSLog(@"---两秒后继续---");
+        if (obj.isCancel) {
+            return ;
+        }
+        sleep(2);
+        NSLog(@"---两秒后继续---");
+        if (obj.isCancel) {
+            return ;
+        }
+        sleep(2);
+        NSLog(@"---两秒后继续---");
+        if (obj.isCancel) {
+            return ;
+        }
+        sleep(2);
+        NSLog(@"---两秒后继续---");
+        if (obj.isCancel) {
+            return ;
+        }
+        sleep(2);
+        NSLog(@"---两秒后继续---");
+        if (obj.isCancel) {
+            return ;
+        }
+        sleep(2);
+        NSLog(@"---两秒后继续---");
+        if (obj.isCancel) {
+            return ;
+        }
+        sleep(2);
+        NSLog(@"---两秒后继续---");
+        if (obj.isCancel) {
+            return ;
+        }
+        sleep(2);
+        NSLog(@"---两秒后继续---");
+        if (obj.isCancel) {
+            return ;
+        }
+        sleep(2);
+        NSLog(@"---两秒后继续---");
+        if (obj.isCancel) {
+            return ;
+        }
+        sleep(2);
+        NSLog(@"---两秒后继续---");
+        if (obj.isCancel) {
+            return ;
+        }
+        
+    });
 }
 @end
