@@ -10,6 +10,8 @@
 
 @interface AddObserverToCurrentRunloopViewController ()
 
+@property (nonatomic, strong) NSTimer *timer;
+
 @end
 
 @implementation AddObserverToCurrentRunloopViewController
@@ -44,19 +46,40 @@
     [but addTarget:self action:@selector(click) forControlEvents:UIControlEventTouchDown];
     [self.view addSubview:but];
     
-    NSDate *fireDate = [NSDate dateWithTimeIntervalSinceNow:10.0];
-    NSTimer *cameraTimer = [[NSTimer alloc] initWithFireDate:fireDate interval:10.0 target:self selector:@selector(timedPhotoFire) userInfo:nil repeats:YES];
-    NSRunLoop *timerRunLoop = [NSRunLoop mainRunLoop];
-    [timerRunLoop addTimer:cameraTimer forMode:NSDefaultRunLoopMode];
-    [timerRunLoop run];
+    //schedule这种方式创建timer，当执行到timerSchedule方法时，mode还是kCFRunLoopDefaultMode，并且在主线程
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:10 target:self selector:@selector(timerSchedul) userInfo:nil repeats:YES];
+    [self.timer fire];
+    
+    //解释下timer这个东西
+    //1,这里解释下为什么timer一般无法释放，原因是timer会给方法的接受者retain一份对象内存
+    //2，timer的这个方法scheduledTimerWithTimeInterval实质上是做了两件事，第一件事是创建timer，第二件事是把他添加到defaultmode中
+    //3，NSTimer其实只能跟runloop合并使用
+    //4，按照上面的理解，NSTimer计时肯定不准，因为当前线程当前这个mode很可能资源不够被卡主，这个时候timer就不准了
+//    NSDate *fireDate = [NSDate dateWithTimeIntervalSinceNow:2.0];
+//    NSTimer *cameraTimer = [[NSTimer alloc] initWithFireDate:fireDate interval:2.0 target:self selector:@selector(timedPhotoFire) userInfo:nil repeats:YES];
+    
+//runloop1
+//能让timer跑起来，但是主界面卡死了，不能有用户操作
+//    NSRunLoop *timerRunLoop = [NSRunLoop currentRunLoop];
+//    [timerRunLoop addTimer:cameraTimer forMode:kCFRunLoopDefaultMode];
+//    [timerRunLoop run];
+    
+    //runloop2
+    //效果和1一样，原因未知，runloop2的runloop不需要调用run方法，因为mainrunloop默认会run
 //    [[NSRunLoop mainRunLoop] addTimer:cameraTimer forMode:NSDefaultRunLoopMode];
     
     [self addObserverToCurrentRunloop];
-	// Do any additional setup after loading the view.
+}
+
+- (void)timerSchedul {
+    NSString* runLoopMode = [[NSRunLoop currentRunLoop] currentMode];
+    NSThread *thread = [NSThread currentThread];
+    NSLog(@"%@===%d", runLoopMode, thread.isMainThread);
 }
 
 - (void)timedPhotoFire {
-    NSLog(@"===为什么不加到runloop就不跑了====");
+    NSString* runLoopMode = [[NSRunLoop currentRunLoop] currentMode];
+    NSLog(@"===为什么不加到runloop就不跑了====%@", runLoopMode);
 }
 
 - (void)addObserverToCurrentRunloop
@@ -112,12 +135,6 @@ void myRunLoopObserver(CFRunLoopObserverRef observer, CFRunLoopActivity activity
         default:
             break;
     }
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 @end

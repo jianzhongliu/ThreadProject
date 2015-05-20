@@ -10,29 +10,29 @@
 	<string>MyMutableThread</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>89AA12B2-A55F-4E6C-8A9D-F4AF9B1AE715</key>
+		<key>18F5C6F013B4434EAB62558F42635DD01F53F119</key>
 		<string>https://github.com/jianzhongliu/ThreadProject.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>MyMutableThread.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>89AA12B2-A55F-4E6C-8A9D-F4AF9B1AE715</key>
+		<key>18F5C6F013B4434EAB62558F42635DD01F53F119</key>
 		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/jianzhongliu/ThreadProject.git</string>
 	<key>IDESourceControlProjectVersion</key>
-	<integer>110</integer>
+	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>89AA12B2-A55F-4E6C-8A9D-F4AF9B1AE715</string>
+	<string>18F5C6F013B4434EAB62558F42635DD01F53F119</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>89AA12B2-A55F-4E6C-8A9D-F4AF9B1AE715</string>
+			<string>18F5C6F013B4434EAB62558F42635DD01F53F119</string>
 			<key>IDESourceControlWCCName</key>
 			<string>ThreadProject</string>
 		</dict>
