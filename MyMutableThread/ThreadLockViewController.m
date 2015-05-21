@@ -27,7 +27,7 @@
     return self;
 }
 - (void)background {
-    [self dismissViewControllerAnimated:YES completion:nil];
+//    [self dismissViewControllerAnimated:YES completion:nil];
 }
 - (void)viewDidLoad
 {
@@ -36,8 +36,7 @@
 //    [self synchronizedLockMethod];//@synchronized创建互斥锁
 //    [self lockForLockAndUnlockMethod];//用lock对象管理锁
 //    [self GCDThreadMethodForSemaphoreLock];
-    [self forthRecursiveLock];
-    [self synchronizedLockMethod];
+//    [self forthRecursiveLock];
     // 待续。。。。。。
     
     
@@ -62,8 +61,8 @@
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         @synchronized(obj1){
             [[NSThread currentThread] setName:[NSString stringWithFormat:@"第一个线程"]];
-            [obj1 firstMethodforPrintSomeThing];
-            sleep(10);
+            [obj1 secondMethodforPrintSomeWordsElse];
+            sleep(1);
         }
     });
     

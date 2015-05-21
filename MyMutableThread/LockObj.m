@@ -36,13 +36,13 @@
 }
 
 - (void)secondMethodforPrintSomeWordsElse{
-    @synchronized(self){
+//    @synchronized(self){
     NSLog(@"--------secondMethodforPrintSomeWordsElse-----%@",[[NSThread currentThread] name]);
     NSLog(@"--------secondMethodforPrintSomeWordsElse-Selector----%@",NSStringFromSelector(_cmd));
     sleep(1);
     NSLog(@"--------secondMethodforPrintSomeWordsElse---Current thread = %@", [NSThread currentThread]);
     NSLog(@"--------secondMethodforPrintSomeWordsElse----Main thread = %@", [NSThread mainThread]);
-    }
+//    }
 }
 
 - (void)GCDfirstMethodforPrintSomeThing{
