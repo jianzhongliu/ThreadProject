@@ -39,7 +39,7 @@
     but1.frame = CGRectMake(10, 200, 40, 40);
     [but1 setTitle:@"start" forState:UIControlStateNormal];
     [but1 setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-    [but1 addTarget:self action:@selector(firstGCDThreadRunINMainThread) forControlEvents:UIControlEventTouchDown];
+    [but1 addTarget:self action:@selector(startThread) forControlEvents:UIControlEventTouchDown];
     [self.view addSubview:but1];
     
     UIButton *but2 = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -56,14 +56,18 @@
     [but3 addTarget:self action:@selector(cancel) forControlEvents:UIControlEventTouchDown];
     [self.view addSubview:but3];
     
-//    [self firstGCDThreadRunINMainThread];//主线程队列中得线程
-//    [self secondGCDThreadForLoadIMG];//同步线程和异步线程
-//    [self thirdGCDThreadForDelayPerform];//延迟执行的线程
-//    [self forthGCDThreadForGroupThread];//分组的队列,我们可以创建很多组，每个组是一个队列，队列中得任务是串行得，
-//    [self fifthGCDThreadForMyNameQueue];//创建指定的自定义的串行队列
-//    [self sixthGCDThreadForSignal];
-//    [self seventhGCDThreadForCancelBlock];//通过bool值取消gcd线程，需要点击cancelThread按钮中断线程的继续。
-    [self eighthGCDThreadForSemaphore];
+
+}
+
+- (void)startThread {
+//        [self firstGCDThreadRunINMainThread];//主线程队列中得线程
+//        [self secondGCDThreadForLoadIMG];//同步线程和异步线程
+//        [self thirdGCDThreadForDelayPerform];//延迟执行的线程
+//        [self forthGCDThreadForGroupThread];//分组的队列,我们可以创建很多组，每个组是一个队列，队列中得任务是串行得，
+//        [self fifthGCDThreadForMyNameQueue];//创建指定的自定义的串行队列
+//        [self sixthGCDThreadForSignal];
+//        [self seventhGCDThreadForCancelBlock];//通过bool值取消gcd线程，需要点击cancelThread按钮中断线程的继续。
+        [self eighthGCDThreadForSemaphore];
 }
 
 - (void)dealloc {
@@ -157,7 +161,7 @@
 - (void)thirdGCDThreadForDelayPerform {
     double delayInSeconds = 5.0;
 
-    dispatch_time_t delayInNanoSeconds =dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+    dispatch_time_t delayInNanoSeconds =dispatch_time(0, delayInSeconds * 1000000000);
     // 得到全局队列
     dispatch_queue_t concurrentQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     // 延期执行
@@ -165,6 +169,7 @@
         NSLog(@"Output GCD !");
         
     });
+    NSLog(@"---");
 }
 /**
  注意：当所有线程在同一个queue中执行，并且在同一个group中执行，才会得到理想的结果，当改变其中一个任务的queue就会分成多条线去执行了，不会是原来的在一个group中逐一执行
@@ -241,7 +246,13 @@
             NSLog(@"Current thread = %@", [NSThread currentThread]);
         }
     });
-    
+    dispatch_async(firstSerialQueue, ^{
+        NSUInteger counter = 0;
+        for (counter = 0;counter < 5;counter++){
+            NSLog(@"Second iteration, counter = %lu", (unsigned long)counter);
+            NSLog(@"Current thread = %@", [NSThread currentThread]);
+        }
+    });
     dispatch_async(firstSerialQueue, ^{
         NSUInteger counter = 0;
         for (counter = 0;counter < 5;counter++){
@@ -254,8 +265,15 @@
 //    dispatch_release(firstSerialQueue);
     
     // 输出主队列，比较会发现，我们自定义的队列，并不在主线程上，效率还是蛮高的。
+    
+    dispatch_queue_t mainQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    dispatch_async(mainQueue, ^(void) {
+        NSLog(@"DISPATCH_QUEUE_PRIORITY_DEFAULT Main thread = %@", [NSThread currentThread]);
+    });
+    
     dispatch_queue_t mainQueue1 = dispatch_get_main_queue();
     dispatch_async(mainQueue1, ^(void) {
+        NSLog(@"Main thread = %@", [NSThread currentThread]);
         NSLog(@"Main thread = %@", [NSThread mainThread]);
     });
 }
@@ -292,7 +310,6 @@
     __weak GCDThreadFirstViewController *obj = self;
     
     dispatch_queue_t myqueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-
     dispatch_async(myqueue, ^{
         sleep(2);
         NSLog(@"---两秒后继续---");
@@ -325,18 +342,20 @@
 
 - (void)eighthGCDThreadForSemaphore {
     dispatch_group_t group = dispatch_group_create();
-    dispatch_semaphore_t semaphore = dispatch_semaphore_create(1);
-    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+//    dispatch_semaphore_t semaphore = dispatch_semaphore_create(1);
+    dispatch_queue_t queue = dispatch_queue_create("gange", NULL);
     for (int i = 0; i < 3; i++)
     {
-        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+//        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         dispatch_group_async(group, queue, ^{
             NSLog(@"%i",i);
+            NSLog(@"current thread%@", [NSThread currentThread]);
             sleep(2);
-            dispatch_semaphore_signal(semaphore);
+//            dispatch_semaphore_signal(semaphore);
         });
     }
     dispatch_group_wait(group, DISPATCH_TIME_FOREVER);
+    NSLog(@"dispatch_group_wait");
 }
 
 @end
