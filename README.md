@@ -3,7 +3,7 @@ RootViewController---------------------a importor of even kind of thread
 
 AddObserverToCurrentRunloopViewController----runloop & observer
 ThreadLockViewController---------------lock used in thread
-GCDThreadFirstViewController-----------GCD Thread methods
+GCDThreadFirstViewController-----------GCD Thread methods readme写在GCDThreadFirstViewController.h这个文件
 
 
 OperationObjectManager ----------------some kind of operation
